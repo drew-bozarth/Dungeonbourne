@@ -15,12 +15,14 @@ public abstract class Mover : Fighter
     private BoxCollider2D boxCollider;
     private Vector3 moveDelta;
     private RaycastHit2D hit;
-    protected float ySpeed = 0.75f;
-    protected float xSpeed = 1.0f;
+    public float originalScaleX;
+    public float ySpeed = 0.75f;
+    public float xSpeed = 1.0f;
 
     protected virtual void Start()
     {
         boxCollider = GetComponent<BoxCollider2D>();
+        originalScaleX = transform.localScale.x;
     }
 
     protected virtual void UpdateMotor(Vector3 input, float speedChange)
@@ -30,10 +32,16 @@ public abstract class Mover : Fighter
         
         // Swap sprite direction, whether going right or left
         if (moveDelta.x > 0)
-            transform.localScale = Vector3.one;
+        {
+            transform.localScale = new Vector3(originalScaleX, transform.localScale.y, transform.localScale.z);
+            //transform.localScale = Vector3.one;
+        }
         else if (moveDelta.x < 0)
-            transform.localScale = new Vector3(-1, 1, 1);
-        
+        {
+            transform.localScale = new Vector3(-originalScaleX, transform.localScale.y, transform.localScale.z);
+            //transform.localScale = new Vector3(-1, 1, 1);
+        }
+
         // Add push vector, if any
         moveDelta += pushDirection;
         

@@ -27,7 +27,7 @@ public class RoomManager : MonoBehaviour
         }
         doorsParent = GameObject.Find("Doors");
         doorGridObject = GameObject.Find("OtherExtra");
-        tilemapRenderer = doorGridObject.GetComponent<TilemapRenderer>();
+        //tilemapRenderer = doorGridObject.GetComponent<TilemapRenderer>();
         
         currentRoom = Rooms[0,0];
         clearRoom(currentRoom);
@@ -87,7 +87,8 @@ public class RoomManager : MonoBehaviour
         if (clearedRooms.Contains(currentRoom))
         {
             // SET SPRITE TO OPEN (on)
-            tilemapRenderer.enabled = false;
+            //tilemapRenderer.enabled = false;
+            doorGridObject.gameObject.SetActive(false);
             // TURN ON COLLIDERS
             doorsParent.gameObject.SetActive(true);
             Debug.Log("DOORS OPEN!!");
@@ -95,7 +96,8 @@ public class RoomManager : MonoBehaviour
         else
         {
             // Set sprite to closed (off)
-            tilemapRenderer.enabled = true;
+            //tilemapRenderer.enabled = true;
+            doorGridObject.gameObject.SetActive(true);
             // turn off colliders
             doorsParent.gameObject.SetActive(false);
             Debug.Log("Doors closed");

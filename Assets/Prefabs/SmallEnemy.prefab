@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1274844938312716721}
   - component: {fileID: 7990982469800780011}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: EnemyHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -282532281
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.44313726, g: 0, b: 0.44313726, a: 1}
@@ -99,7 +99,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2489868767350634737}
   - component: {fileID: 6477799870960740578}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: EnemyHealthBar (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ RectTransform:
   m_GameObject: {fileID: 5095012738724943465}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.81, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1274844938312716721}
@@ -163,8 +163,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 142733429
-  m_SortingLayer: 3
+  m_SortingLayerID: 1926921881
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.90588236, g: 0, b: 0.90588236, a: 1}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 7752913144665658435}
   - component: {fileID: 1814207083865106771}
   - component: {fileID: 6525431565281970353}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,7 +295,7 @@ GameObject:
   - component: {fileID: 7402199214300816687}
   - component: {fileID: 185285101145706189}
   - component: {fileID: 8269038931952385650}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SmallEnemy
   m_TagString: Fighter
   m_Icon: {fileID: 0}
@@ -358,11 +358,11 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -282532281
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 184980849, guid: da1c45975ae7c477eaa2cde43b1c9284, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.16, y: 0.16}
@@ -431,6 +431,9 @@ MonoBehaviour:
   hitpoint: 5
   maxHitpoint: 5
   pushRecoverySpeed: 0.2
+  originalScaleX: 0
+  ySpeed: 0.75
+  xSpeed: 1
   xpValue: 1
   enemySpeedChange: 0.5
   triggerLength: 0.5
