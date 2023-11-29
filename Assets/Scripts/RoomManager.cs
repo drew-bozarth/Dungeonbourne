@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+[System.Serializable]
 public class RoomManager : MonoBehaviour
 {
-    private string[,] Rooms = {{"Room_0_0","Room_0_1", "Room_0_2"},
-        {"Room_1_0","Room_1_1","Room_1_2"},{"Room_2_0","Room_2_1","Room_2_2"},
-        {"Room_3_0","Room_3_1","Room_3_2"}};
+    public string[][] Rooms;
+    public int rows;
+    public int cols;
 
     List<string> unclearedRooms = new List<string>();
     List<string> clearedRooms = new List<string>();
@@ -21,15 +22,34 @@ public class RoomManager : MonoBehaviour
     private void Start()
     {
         GameManager.instance.SetRoomManager(this);
-        foreach (string room in Rooms)
+        // NEW CODE TO SETUP ROOMS:
+        Rooms = new string[rows][];
+        for (int i = 0; i < rows; i++)
         {
-            unclearedRooms.Add(room);
+            Rooms[i] = new string[cols];
+            for (int j = 0; j < cols; j++)
+            {
+                // Assign values in the format "Room_(row)_(col)"
+                Rooms[i][j] = "Room_" + i + "_" + j;
+            }
+        }
+        //foreach (string room in Rooms)
+        //{
+          //  unclearedRooms.Add(room);
+        //}
+        foreach (string[] row in Rooms)
+        {
+            foreach (string room in row)
+            {
+                //Debug.Log(room);
+                unclearedRooms.Add(room);
+            }
         }
         doorsParent = GameObject.Find("Doors");
         doorGridObject = GameObject.Find("OtherExtra");
-        //tilemapRenderer = doorGridObject.GetComponent<TilemapRenderer>();
         
-        currentRoom = Rooms[0,0];
+        //currentRoom = Rooms[0,0];
+        currentRoom = Rooms[0][0];
         clearRoom(currentRoom);
     }
     
@@ -87,7 +107,6 @@ public class RoomManager : MonoBehaviour
         if (clearedRooms.Contains(currentRoom))
         {
             // SET SPRITE TO OPEN (on)
-            //tilemapRenderer.enabled = false;
             doorGridObject.gameObject.SetActive(false);
             // TURN ON COLLIDERS
             doorsParent.gameObject.SetActive(true);
@@ -96,7 +115,6 @@ public class RoomManager : MonoBehaviour
         else
         {
             // Set sprite to closed (off)
-            //tilemapRenderer.enabled = true;
             doorGridObject.gameObject.SetActive(true);
             // turn off colliders
             doorsParent.gameObject.SetActive(false);

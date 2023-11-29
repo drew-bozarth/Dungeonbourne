@@ -48,6 +48,15 @@ public class CharacterMenu : MonoBehaviour
     {
         characterSelectionSprite.sprite = GameManager.instance.playerSprites[currentCharacterSelection];
         GameManager.instance.player.SwapSprite(currentCharacterSelection);
+        // Anakin Easter Egg
+        if (currentCharacterSelection == 11)
+        {
+            GameManager.instance.weapon.ToggleEEWeapon(true);
+        }
+        else
+        {
+            GameManager.instance.weapon.ToggleEEWeapon(false);
+        }
     }
     
     // Weapon Upgrade

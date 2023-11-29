@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     // Resources
     public List<Sprite> playerSprites;
     public List<Sprite> weaponSprites;
+    public Sprite EEweaponSprite;
     public List<int> weaponPrices;
     public List<int> xpTable;
     

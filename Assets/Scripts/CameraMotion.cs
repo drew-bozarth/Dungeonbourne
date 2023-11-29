@@ -15,6 +15,7 @@ public class CameraMotion : MonoBehaviour
     private Transform lookAt;
     public float boundX = 0.3f;
     public float boundY = 0.15f;
+    public bool lockYValue;
 
     private void Start()
     {
@@ -54,7 +55,14 @@ public class CameraMotion : MonoBehaviour
                 }
             }
 
-            transform.position += new Vector3(delta.x, delta.y, 0);
+            if (lockYValue)
+            {
+                transform.position += new Vector3(delta.x, 0, 0);
+            }
+            else
+            {
+                transform.position += new Vector3(delta.x, delta.y, 0);
+            }
         }
     }
 }

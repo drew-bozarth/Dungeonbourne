@@ -1895,7 +1895,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1916,7 +1916,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1924,6 +1924,48 @@ TextureImporter:
       bones: []
       spriteID: dd7541685d64d406ca892e1fb8a74f7e
       internalID: 1718611483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_1
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 48
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b396cf73e0f1471fab2222123823de0
+      internalID: 23276327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mini_enemy_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2f402aff40f14eec937a55cad8a352a
+      internalID: 677435413
       vertices: []
       indices: 
       edges: []
@@ -1942,6 +1984,7 @@ TextureImporter:
       Menu_0: 1551054664
       Menu_1: -17378244
       boss_0: -812144800
+      boss_1: 23276327
       chest_0: 665088850
       chest_1: -1381233855
       chest_2: 392679300
@@ -1971,6 +2014,7 @@ TextureImporter:
       healingFountain_1: 1705970916
       healingFountain_2: -1305221628
       mini_enemy_0: 1718611483
+      mini_enemy_1: 677435413
       pillar_0: -323854311
       pillar_1: 1097250573
       pillar_2: 519284502

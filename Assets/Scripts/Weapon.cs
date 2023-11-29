@@ -89,4 +89,16 @@ public class Weapon : Collidable
         weaponLevel = level;
         spriteRenderer.sprite = GameManager.instance.weaponSprites[weaponLevel];
     }
+
+    public void ToggleEEWeapon(bool toggle)
+    {
+        if (toggle)
+        {
+            spriteRenderer.sprite = GameManager.instance.EEweaponSprite;
+        }
+        else
+        {
+            spriteRenderer.sprite = GameManager.instance.weaponSprites[weaponLevel];
+        }
+    }
 }
