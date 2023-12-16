@@ -18,6 +18,7 @@ public class Player : Mover
     public float playerSpeedChange = 1.0f;
     private SpriteRenderer spriteRenderer;
     private bool isAlive = true;
+    private bool controlsOn = true;
 
     protected override void Start()
     {
@@ -41,7 +42,7 @@ public class Player : Mover
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
         
-        if (isAlive)
+        if (isAlive && controlsOn)
         {
             UpdateMotor(new Vector3(x,y,0), playerSpeedChange);
         }
@@ -51,6 +52,7 @@ public class Player : Mover
     {
         GameManager.instance.deathMenuAnim.SetTrigger("Show");
         isAlive = false;
+        this.gameObject.SetActive(false);
         
         //Destroy(gameObject);
         //Destroy(GameManager.instance.floatingTextManager.gameObject);
@@ -94,5 +96,11 @@ public class Player : Mover
         } 
         GameManager.instance.ShowText("+" + healingAmount.ToString() + " hp", 45, Color.green, transform.position, Vector3.up * 30, 1.0f);
         GameManager.instance.OnHitpointChange();
+    }
+    
+    // enable or disable controls externally
+    public void SetControlsOn(bool isEnabled)
+    {
+        controlsOn = isEnabled;
     }
 }

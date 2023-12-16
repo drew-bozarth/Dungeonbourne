@@ -12,26 +12,8 @@ using UnityEngine;
 
 public class Door : Collidable
 {
-    //private RoomManager roomManager;
     private string spawnPointString;
 
-        /*
-        GameObject roomsObject = GameObject.Find("Rooms");
-
-        if (roomsObject != null)
-        {
-            roomManager = roomsObject.GetComponent<RoomManager>();
-
-            if (roomManager == null)
-            {
-                Debug.LogError("RoomManager component not found on the 'Rooms' GameObject.");
-            }
-        }
-        else
-        {
-            Debug.LogError("GameObject with the name 'Rooms' not found.");
-        }
-        */
     protected override void OnCollide(Collider2D coll)
     {
         if (coll.name == "Player")
@@ -79,10 +61,7 @@ public class Door : Collidable
                 Debug.Log("Invalid option here");
                 break;
         }
-        Debug.Log("GO TO DOOR: " + newDoorName);
-        Debug.Log("GO TO new room from door: " + newRoomName);
         GameManager.instance.moveToNewRoom(newRoomName);
-        //roomManager.moveToNewRoom(newRoomName);
         return newDoorName;
     }
 }

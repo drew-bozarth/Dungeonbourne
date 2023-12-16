@@ -10,8 +10,10 @@ Dungeonborne - GameManager.cs
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Mime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -30,6 +32,8 @@ public class GameManager : MonoBehaviour
         
         // To clear progress turn off or on
         PlayerPrefs.DeleteAll();
+
+        currentFloorNumber = 1;
         
         instance = this;
         SceneManager.sceneLoaded += LoadState;
@@ -50,8 +54,12 @@ public class GameManager : MonoBehaviour
     public Animator deathMenuAnim;
     public GameObject hud;
     public GameObject menu;
+    public GameObject loadingScreen;
+    public GameObject levelPrefab;
     public RectTransform hitpointBar;
     private RoomManager roomManager;
+    private FloorManager floorManager;
+    public int currentFloorNumber;
     
     // Logic
     public int coins;
@@ -143,9 +151,107 @@ public class GameManager : MonoBehaviour
         roomManager = roomManagerReference;
     }
     
+    public void SetFloorManager(FloorManager floorManagerReference)
+    {
+        floorManager = floorManagerReference;
+    }
+    
     public void moveToNewRoom (string roomName)
     {
         roomManager.moveToNewRoom(roomName);
+    }
+    
+    public void moveToNewFloor ()
+    {
+        floorManager.moveToNewFloor();
+    }
+    
+    // Loading Screens
+
+    public IEnumerator loadingScreenChange(int floorsToGoUp)
+    {
+        Debug.Log("loading screen change");
+        currentFloorNumber += floorsToGoUp;
+        loadingScreen.gameObject.SetActive(true);
+        loadingScreen.transform.GetChild(0).transform.GetComponent<Text>().text = "Floor " + currentFloorNumber;
+        yield return StartCoroutine(FadeInLoadingScreen());
+    }
+    
+    public IEnumerator FadeInLoadingScreen()
+    {
+        Debug.Log("FADING in loading screen!!!");
+        // Turn off player controls
+        //player.SetControlsOn(false);
+        // Turn screen on
+        loadingScreen.gameObject.SetActive(true);
+        // Fade in screen
+        yield return StartCoroutine(Fade(loadingScreen.GetComponent<CanvasGroup>(), 0f, 1f, 1f));
+        Debug.Log("Done fading in manager");
+        // Set loadingScreen alpha to 1 for instant visibility
+        loadingScreen.GetComponent<CanvasGroup>().alpha = 1f;
+    }
+    
+    public IEnumerator FadeOutLoadingScreen()
+    {
+        Debug.Log("Fading out loading screen !!");
+        // Fade screen out
+        yield return StartCoroutine(Fade(loadingScreen.GetComponent<CanvasGroup>(), 1f, 0f, 1f));
+        Debug.Log("Done fading");
+        // Turn screen off
+        loadingScreen.gameObject.SetActive(false);
+        // Turn player controls back on
+        //player.SetControlsOn(true);
+    }
+    
+    // Loading Screens for Tutorial
+    public IEnumerator FadeInLoadingScreenFromTutorial()
+    {
+        Debug.Log("FADING!!!");
+        // Turn off player controls
+        player.SetControlsOn(false);
+        // Turn screen on
+        loadingScreen.gameObject.SetActive(true);
+        // Fade in screen
+        yield return StartCoroutine(Fade(loadingScreen.GetComponent<CanvasGroup>(), 0f, 1f, 1f));
+        Debug.Log("Done fading in manager");
+        // Set loadingScreen alpha to 1 for instant visibility
+        loadingScreen.GetComponent<CanvasGroup>().alpha = 1f;
+        
+        // Load Scene
+        string sceneName = "LevelFloor_DBozarth";
+        SceneManager.LoadScene(sceneName);
+
+        // start to fade screen out
+        StartCoroutine(FadeOutFromTutorial());
+        Debug.Log("FADING OUT!!!");
+    }
+
+    private IEnumerator FadeOutFromTutorial()
+    {
+        Debug.Log("FADING OUT method!!!");
+        yield return new WaitForSeconds(1.25f);
+        Debug.Log("FADING OUT method again!!!");
+        
+        // Fade screen out
+        yield return StartCoroutine(Fade(loadingScreen.GetComponent<CanvasGroup>(), 1f, 0f, 1f));
+        // Turn screen off
+        loadingScreen.gameObject.SetActive(false);
+        // Turn player controls back on
+        player.SetControlsOn(true);
+    }
+    
+    private IEnumerator Fade(CanvasGroup canvasGroup, float startAlpha, float targetAlpha, float duration)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        canvasGroup.alpha = targetAlpha;
     }
 
     // Death Menu and Respawn
@@ -155,13 +261,17 @@ public class GameManager : MonoBehaviour
         Destroy(GameManager.instance.floatingTextManager.gameObject);
         Destroy(GameManager.instance.gameObject);
         Destroy(GameManager.instance.player.gameObject);
+        //GameManager.instance.player.gameObject.SetActive(false);
         UnityEngine.SceneManagement.SceneManager.LoadScene("MM_DBozarth");
     }
     
     // On Scene Loaded
     public void OnSceneLoaded(Scene s, LoadSceneMode mode)
     {
-        player.transform.position = GameObject.Find("SpawnPoint").transform.position;
+        if (player != null)
+        {
+            player.transform.position = GameObject.Find("SpawnPoint").transform.position;
+        }
     }
 
     // Save state of game

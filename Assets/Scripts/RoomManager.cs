@@ -72,13 +72,11 @@ public class RoomManager : MonoBehaviour
     private IEnumerator CheckAndClearRoom()
     {
         isClearingRoom = true;
-        Debug.Log("Clearing room rn");
         Transform currentRoomTransform = transform.Find(currentRoom);
         // Wait until the next frame to allow Unity to update the hierarchy
         yield return null;
         if (currentRoomTransform != null && currentRoomTransform.childCount == 0)
         {
-            Debug.Log("We cleared the room");
             // Call clearRoom(currentRoom)
             clearRoom(currentRoom);
         }
@@ -87,9 +85,6 @@ public class RoomManager : MonoBehaviour
 
     public void moveToNewRoom(string newRoomName)
     {
-        Debug.Log("Got new room name: " + newRoomName);
-        Debug.Log("current Uncleared Rooms: " + string.Join(", ", unclearedRooms));
-        Debug.Log("current Cleared Rooms: " + string.Join(", ", clearedRooms));
         currentRoom = newRoomName;
         // update doors whether or not room is clear rn
         updateDoors();
@@ -100,7 +95,6 @@ public class RoomManager : MonoBehaviour
         // Check if the room is found in list
         if (unclearedRooms.Contains(roomName))
         {
-            Debug.Log("Clearing :: " + roomName);
             // Remove the room from unclearedRooms
             unclearedRooms.Remove(roomName);
             // Add the room to clearedRooms
@@ -118,7 +112,7 @@ public class RoomManager : MonoBehaviour
             doorGridObject.gameObject.SetActive(false);
             // TURN ON COLLIDERS
             doorsParent.gameObject.SetActive(true);
-            Debug.Log("DOORS OPEN!!");
+            //Debug.Log("DOORS OPEN!!");
         }
         else
         {
@@ -126,7 +120,7 @@ public class RoomManager : MonoBehaviour
             doorGridObject.gameObject.SetActive(true);
             // turn off colliders
             doorsParent.gameObject.SetActive(false);
-            Debug.Log("Doors closed");
+            //Debug.Log("Doors closed");
         }
     }
 }
